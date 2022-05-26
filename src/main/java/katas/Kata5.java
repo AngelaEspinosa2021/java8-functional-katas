@@ -19,6 +19,8 @@ public class Kata5 {
     public static Double execute() {
         List<Movie> movies = DataUtil.getMovies();
 
-        return 3.0;
+        Double largestRating = movies.stream().mapToDouble(p -> p.getRating()).reduce(Double::max).getAsDouble();
+
+        return largestRating;
     }
 }
