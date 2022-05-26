@@ -1,13 +1,10 @@
 package katas;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import model.MovieList;
 import util.DataUtil;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /*
     Goal: Create a datastructure from the given data:
@@ -55,9 +52,13 @@ public class Kata10 {
         List<Map> lists = DataUtil.getLists();
         List<Map> videos = DataUtil.getVideos();
 
-        return ImmutableList.of(ImmutableMap.of("name", "someName", "videos", ImmutableList.of(
-                ImmutableMap.of("id", 5, "title", "The Chamber"),
-                ImmutableMap.of("id", 3, "title", "Fracture")
-        )));
+
+        List<Map> listasAnidadas = new ArrayList<>();
+        listasAnidadas = (List<Map>) lists.stream().map(p-> ImmutableMap.of("name", p.get("name"),"videos", DataUtil.getVideos().stream()
+                        .filter(x -> (boolean) x.get("listId"))
+                        .map(e -> ImmutableMap.of("id", e.get("id"),"title", e.get("title"))).collect(Collectors.toList());
+
+
+        return listasAnidadas;
     }
 }
